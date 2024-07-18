@@ -1,6 +1,8 @@
 import json
+from typing import Optional
 
 from book import Book
+from enums import BookStatus
 
 
 class Library:
@@ -29,18 +31,24 @@ class Library:
                 return
         print(f"Книга с ID {book_id} не найдена.")
 
+    def find_book_by_id(self, book_id: int) -> Optional[Book]:
+        for book in self.books:
+            if book.id == book_id:
+                return book
+        return None
+
     def search_books(self, keyword: str) -> list[Book]:
         return [book for book in self.books if keyword.lower() in book.title.lower() or
                 keyword.lower() in book.author.lower() or keyword == str(book.year)]
 
-    def update_book_status(self, book_id: int, new_status: str) -> None:
-        for book in self.books:
-            if book.id == book_id:
-                book.status = new_status
-                print(f"Статус книги с ID {book_id} обновлен на '{new_status}'.")
-                return
-        print(f"Книга с ID {book_id} не найдена.")
-
+    def update_book_status(self, book_id: int, new_status: BookStatus) -> None:
+        book = self.find_book_by_id(book_id)
+        if book:
+            book.status = new_status.value
+            self.save_books()
+            print(f"Статус книги с ID {book_id} обновлен на '{new_status.value}'.")
+        else:
+            print(f"Книга с ID {book_id} не найдена.")
 
     def load_books(self) -> list[Book]:
         try:
