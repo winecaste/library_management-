@@ -29,3 +29,11 @@ class Library:
     def search_books(self, keyword: str) -> list[Book]:
         return [book for book in self.books if keyword.lower() in book.title.lower() or
                 keyword.lower() in book.author.lower() or keyword == str(book.year)]
+
+    def update_book_status(self, book_id: int, new_status: str) -> None:
+        for book in self.books:
+            if book.id == book_id:
+                book.status = new_status
+                print(f"Статус книги с ID {book_id} обновлен на '{new_status}'.")
+                return
+        print(f"Книга с ID {book_id} не найдена.")
