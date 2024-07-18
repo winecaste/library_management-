@@ -11,7 +11,7 @@
 
 1. Клонируйте репозиторий
    ```sh
-   git clone https://github.com/Rev-1b/EffectiveMobile.git
+   git clone git@github.com:winecaste/library_management-.git
    ```
 2. Активируйте виртуальное окружение
    ```sh
