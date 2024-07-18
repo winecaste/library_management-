@@ -1,9 +1,12 @@
+import json
+
 from book import Book
 
 
 class Library:
-    def __init__(self):
-        self.books = []
+    def __init__(self, data_file: str):
+        self.data_file = data_file
+        self.books = self.load_books()
 
     def add_book(self, title: str, author: str, year: int) -> None:
         book_id = max([book.id for book in self.books], default=0) + 1
@@ -37,3 +40,16 @@ class Library:
                 print(f"Статус книги с ID {book_id} обновлен на '{new_status}'.")
                 return
         print(f"Книга с ID {book_id} не найдена.")
+
+
+    def load_books(self) -> list[Book]:
+        try:
+            with open(self.data_file, 'r') as file:
+                data = json.load(file)
+                return [Book(**book) for book in data]
+        except FileNotFoundError:
+            return []
+
+    def save_books(self) -> None:
+        with open(self.data_file, 'w') as file:
+            json.dump([book.__dict__ for book in self.books], file, indent=4)
