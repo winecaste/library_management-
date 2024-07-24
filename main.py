@@ -46,7 +46,7 @@ def main():
             if choice == MenuChoice.EXIT.value:
                 break
             action()
-        except KeyError:
+        except ValueError:
             print("Неверный выбор. Попробуйте снова.")
 
 
