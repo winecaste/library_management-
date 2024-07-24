@@ -13,9 +13,9 @@
    ```sh
    git clone git@github.com:winecaste/library_management-.git
    ```
-2. Активируйте виртуальное окружение
+2. Перейдите в директорию проекта
    ```sh
-   source venv/bin/activate
+   cd library_management-
    ```
 
 ## О реализации
